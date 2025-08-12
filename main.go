@@ -29,6 +29,7 @@ func main() {
 	// Example resource
 	r.Route("/slack", func(r chi.Router) {
 		r.Get("/event-calendar", getEventCalendarLink)
+		r.Post("/event-calendar", getEventCalendarLinkForSlack)
 	})
 
 	srv := &http.Server{Addr: ":" + addr, Handler: r}
@@ -65,4 +66,8 @@ func getEventCalendarLink(w http.ResponseWriter, r *http.Request) {
 	// Simulate fetching a calendar link
 	w.Header().Set("Content-Type", "application/json")
 	w.Write([]byte(`{"calendarLink":"https://secretive-jade-5a0.notion.site/Event-Calendar-Q3-Q4-2025-24c164277afd80418ab9e78af151fded"}`))
+}
+
+func getEventCalendarLinkForSlack(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("The event calendar link is: https://secretive-jade-5a0.notion.site/Event-Calendar-Q3-Q4-2025-24c164277afd80418ab9e78af151fded"))
 }
